@@ -185,5 +185,5 @@ void shiftLeft(int, iRegister *);
  */
 void resetBit(int, iRegister *);
 
-void assert(int i,iRegister *r);
+bool assert(char, iRegister);
 #endif

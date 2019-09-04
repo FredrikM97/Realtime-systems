@@ -20,7 +20,7 @@ void setAll(iRegister *r) {
 }
 
 int getBit(int i, iRegister *r){
-	return (r->content << i) & 1;
+	return (r->content >> i) & 1;
 }
 
 void assignNibble(int pos, int val, iRegister *r){	
@@ -29,19 +29,19 @@ void assignNibble(int pos, int val, iRegister *r){
 }
 
 int getNibble(int pos, iRegister *r){
-	return r->content << (((pos-1)*4) & 0xF);
+	return r->content >> (((pos-1)*4) & 0xF);
 }
 
-char * reg2str(iRegister r) {
+char *reg2str(iRegister r) {
 	static char output[33];
 	
 	int i; 
-	for (i = 0; i < 32; i++){
+	for (i = 31; i >= 0; i--){
 		//shift left check value, if 1 store in char at position i
 		if(getBit(i,&r) == 1) {
-			output[i] = '1';
+			output[31-i] = '1';
 		}else {
-			output[i] = '0';
+			output[31-i] = '0';
 		}
 	}
 	output[32] = 0x0;
@@ -54,7 +54,3 @@ void shiftLeft(int i, iRegister *r){
 	r->content |= 0>>i;
 }
 
-bool assert(int expected,int observed){
-if(expected == observed) return true;
-else return false;
-}
