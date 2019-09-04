@@ -10,6 +10,7 @@
 int main (){
 	iRegister r;
 	char out[33];
+	char *test;
 
 	/* Put all your test cases for the implemented functions here */
 
@@ -18,7 +19,8 @@ int main (){
 	/* Tests */
 	setAll(&r);
 	printf("%d \n",getBit(1,&r));
-	
+	test = reg2str(r);
+	Hej mattis
 	printf("%d",sizeof(r));
 	int i;
 	for(i = sizeof(reg2str(r)); i >= 0; i--){
