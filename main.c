@@ -10,7 +10,8 @@
 int main (){
 	iRegister r;
 	char out[33];
-
+	int x;
+	//,bljab,
 	/* Put all your test cases for the implemented functions here */
 
 	printf("Start tests \n");
