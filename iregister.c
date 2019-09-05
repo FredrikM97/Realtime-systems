@@ -53,10 +53,10 @@ char *reg2str(iRegister r) {
 	return output; //check why &
 }
 void shiftRight(int i, iRegister *r){
-	r->content |= 0<<i;
+	r->content = r->content>>i;
 }
 void shiftLeft(int i, iRegister *r){
-	r->content |= 0>>i;
+	r->content = r->content<<i;
 }
 
 bool assert(char *i, iRegister r){
