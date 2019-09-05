@@ -6,9 +6,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "iregister.h"
+#include <string.h>
 
 void resetBit(int i, iRegister *r) {
 	r->content &= ~(1 << i);
+}
+
+void resetAll(iRegister *r){
+	r->content |= 0;
 }
 
 void setBit(int i, iRegister *r) {
@@ -54,3 +59,7 @@ void shiftLeft(int i, iRegister *r){
 	r->content |= 0>>i;
 }
 
+bool assert(char *i, iRegister r){
+	if(memcmp(i, reg2str(r),32) == 0) { return true;}
+	return false;
+}
