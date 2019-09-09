@@ -9,7 +9,7 @@
 #include <string.h>
 
 void resetBit(int i, iRegister *r) {
-	if(0 <= i < 32 && r != NULL) {
+	if(0 <= i && i < 32) {
 		r->content &= ~(1 << i);
 	}
 }
@@ -21,36 +21,33 @@ void resetAll(iRegister *r){
 }
 
 void setBit(int i, iRegister *r) {
-	if(0 <= i < 32 && r->content != NULL) {
+	if(0 <= i && i < 32) {
 		r->content |= (1 << i);
 	}
 }
 
 void setAll(iRegister *r) {
-	if(r->content != NULL) {
 		r->content |= ~0;
-	}
 }
 
 int getBit(int i, iRegister *r){
-	if(0 > i >= 32 || r->content == NULL) {return -1;}
+	if(0 > i && i >= 32) {return -1;}
 		return (r->content >> i) & 1;
 }
 
 void assignNibble(int i, int val, iRegister *r){	
-	if(0 <= val < 16 && 0 < i <= 8 && r->content != NULL)   {
+	if(0 <= val && val< 16 && 0 < i && i <= 8)   {
 		r->content &= ~(0xF<<((i-1)*4)); //Masking
 		r->content |= (val<<((i-1)*4));
 	}
 }
 
 int getNibble(int i, iRegister *r){
-	if(0 >= i > 8 || r->content == NULL) {return -1;}
-		return r->content >> (((i-1)*4) & 0xF);
+	if(0 >= i && i > 8) {return -1;}
+		return (r->content >> ((i-1)*4) & 0xF);
 }
 
 char *reg2str(iRegister r) {
-	if(r.content == NULL){return NULL;}
 		static char output[33];
 		
 		int i; 
@@ -66,12 +63,12 @@ char *reg2str(iRegister r) {
 	return output;
 }
 void shiftRight(int i, iRegister *r){
-	if(0 <= i < 32 && r->content != NULL) {
+	if(0 <= i && i < 32) {
 		r->content = r->content>>i;
 	}
 }
 void shiftLeft(int i, iRegister *r){
-	if(0 <= i < 32 && r->content != NULL) {
+	if(0 <= i && i < 32) {
 		r->content = r->content<<i;
 	}
 }
