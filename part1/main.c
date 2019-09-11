@@ -115,7 +115,7 @@ void Test_setBit(){ //klar
 	printf("setBit works\n" );
 }
 
-void Test_setAll(){ //klar
+void Test_setAll(){ //klar 
 	iRegister r;
 	iRegister e;
 	srand(time(0));
