@@ -3,8 +3,9 @@
 //  Updated by Wagner Morais and Johannes van Esch on 28/08/18.
 //  Copyright (c) 2014 by Mohammadreza Mousavi [mohmou]. All rights reserved.
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <time.h>
 #include "iregister.h"
 #include <string.h>
 #include <math.h>
@@ -37,7 +38,7 @@ void unit_test(iRegister r){
 	r = {15};
 	int val = 15;
 	for(i = 0; i <4; i++){
-		val = val - pow(2,i);
+		val = val - (i<<1);
 		resetBit(i, &r);
 		assert_INT('1',val, r.content);
 	}
@@ -50,7 +51,7 @@ void unit_test(iRegister r){
 	}
 	/*Test 3 setAll*/
 	for(i = 0; i <4; i++){
-		r = {(int)pow(2,i)};
+		r = {i<<1};
 		setAll(&r);
 		assert_INT('3',~0, r.content);
 	}
@@ -110,7 +111,8 @@ void unit_test(iRegister r){
 }
 int main (){
 	iRegister r;
-
+	//Inly call one
+	srand(time(0));
 	/* Put all your test cases for the implemented functions here */	
 	printf("\nAddress_R: %p\n", &r);
 	printf("Memory: %s", reg2str(r));
