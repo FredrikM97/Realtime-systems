@@ -6,69 +6,96 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "iregister.h"
-#include <string.h>
+
+
 
 void resetBit(int i, iRegister *r) {
-	if(0 <= i && i < 32) {
+	if(i <= 31 && i >= 0){
 		r->content &= ~(1 << i);
-	}
-}
-
-void resetAll(iRegister *r){
-	if(r->content != NULL){
-		r->content |= 0;
-	}
+	}else{
+		//error protokol
+	} 
 }
 
 void setBit(int i, iRegister *r) {
-	if(0 <= i && i < 32) {
+	if(i <= 31 && i >= 0){
 		r->content |= (1 << i);
+	}else{
+		//error protokol
 	}
 }
 
 void setAll(iRegister *r) {
-		r->content |= ~0;
+	r->content |= ~0;
 }
+
+void resetAll(iRegister *r) {
+	r->content &= 0;
+}
+
 
 int getBit(int i, iRegister *r){
-	if(0 > i && i >= 32) {return -1;}
+	if(i <= 31 && i >= 0){
 		return (r->content >> i) & 1;
-}
-
-void assignNibble(int i, int val, iRegister *r){	
-	if(0 <= val && val< 16 && 0 < i && i <= 8)   {
-		r->content &= ~(0xF<<((i-1)*4)); //Masking
-		r->content |= (val<<((i-1)*4));
+	}else{
+		//error protokol
+		return -1;
 	}
 }
 
-int getNibble(int i, iRegister *r){
-	if(0 >= i && i > 8) {return -1;}
-		return (r->content >> ((i-1)*4) & 0xF);
+void assignNibble(int pos, int val, iRegister *r){	
+	if(pos <= 8 && pos >= 1 && val <=15 && val >= 0){
+		r->content &= ~(0xF<<((pos-1)*4)); //Masking
+		r->content |= (val<<((pos-1)*4));
+	}else{
+		//error protokol
+	}
+}
+
+int getNibble(int pos, iRegister *r){
+	if(pos <= 8 && pos >= 1){
+		return (r->content >> ((pos-1)*4) & 0xF);
+	}
+	//error protokol
+	return -1;
 }
 
 char *reg2str(iRegister r) {
-		static char output[33];
-		
-		int i; 
-		for (i = 31; i >= 0; i--){
-			//shift left check value, if 1 store in char at position i
-			if(getBit(i,&r) == 1) {
-				output[31-i] = '1';
-			}else {
-				output[31-i] = '0';
-			}
+	static char output[33];
+	
+	int i; 
+	for (i = 31; i >= 0; i--){
+		if(getBit(i,&r) == 1) {
+			output[31-i] = '1';
+		}else {
+			output[31-i] = '0';
 		}
-		output[32] = 0x0;
+	}
+	output[32] = 0x0;
 	return output;
 }
+
 void shiftRight(int i, iRegister *r){
-	if(0 <= i && i < 32) {
-		r->content = r->content>>i;
+	if(i <= 32 && i >= 1){
+		if(getBit(31,r) == 1){
+			r->content = (r->content) >> 1;
+			resetBit(31,r);
+			r->content = (r->content) >> i-1;
+		}else{
+			r->content = (r->content) >> i;
+		}
+	}else{
+		//error protokol
 	}
 }
+
 void shiftLeft(int i, iRegister *r){
-	if(0 <= i && i < 32) {
-		r->content = r->content<<i;
+	if(i <= 31 && i >= 1){
+		r->content = (r->content)<<i;
+	}else if(i == 32){
+		r->content = (r->content)<<31;
+		r->content = (r->content)<<1;
+	}else{
+		//error protokol
 	}
 }
