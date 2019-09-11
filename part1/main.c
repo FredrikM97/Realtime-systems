@@ -22,7 +22,6 @@ void Test_getNibble();
 void Test_shiftRight();
 void Test_shiftLeft();
 void Test_getBit();
-//inte gjorda en
 void Test_assignNibble();
 
 
@@ -31,8 +30,6 @@ void Test_assignNibble();
 
 
 int main (){	
-	//test test test set test test test test test test test test test test test test test test test test test test test
-	
 	/* Put all your test cases for the implemented functions here */
 	Tests();
 	return 0;
@@ -55,7 +52,7 @@ void Tests(){
 	printf("\nall tests have been comlpeted\n");
 }
 
-void Test_resetAll(){//klar 
+void Test_resetAll(){
 	iRegister r;
 	iRegister e;
 	srand(time(0));
@@ -79,7 +76,7 @@ void Test_resetAll(){//klar
 	printf("resetAll works\n" );
 }
 
-void Test_setBit(){ //klar
+void Test_setBit(){ 
 	iRegister r;
 	iRegister e;
 	srand(time(0));
@@ -115,7 +112,7 @@ void Test_setBit(){ //klar
 	printf("setBit works\n" );
 }
 
-void Test_setAll(){ //klar 
+void Test_setAll(){
 	iRegister r;
 	iRegister e;
 	srand(time(0));
@@ -139,7 +136,7 @@ void Test_setAll(){ //klar
 	printf("setAll works\n" );
 }
 
-void Test_getBit(){ //klar
+void Test_getBit(){ 
 	iRegister r;
 	iRegister e;
 	int x,y;
@@ -205,7 +202,7 @@ void Test_assignNibble(){
 	printf("assignNibble works\n" );
 }
 
-void Test_getNibble(){ //klar
+void Test_getNibble(){ 
 	iRegister r;
 	iRegister e;
 	e = {0};//set all bits in control
@@ -226,7 +223,7 @@ void Test_getNibble(){ //klar
 	printf("getNibble works\n" );
 }
 
-void Test_reg2str(){//Klar
+void Test_reg2str(){
 	iRegister r;
 
 	r = {0};	
@@ -246,7 +243,7 @@ void Test_reg2str(){//Klar
 	printf("reg2str works\n" );
 }
 
-void Test_shiftRight(){ //klar
+void Test_shiftRight(){
 	iRegister r;
 	iRegister e;
 	e = {33554432};//set all bits in control
@@ -274,7 +271,7 @@ void Test_shiftRight(){ //klar
 	printf("shiftRight works\n" );
 }
 
-void Test_shiftLeft(){ //klar
+void Test_shiftLeft(){ 
 	iRegister r;
 	iRegister e;
 	e = {56};//set all bits in control
@@ -302,7 +299,7 @@ void Test_shiftLeft(){ //klar
 	printf("shiftLeft works\n" );
 }
 
-void Test_resetBit(){ //Klar
+void Test_resetBit(){
 	iRegister r;
 	iRegister e;
 	int x,temp;
