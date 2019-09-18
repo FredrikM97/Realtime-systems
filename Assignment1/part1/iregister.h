@@ -30,7 +30,7 @@ typedef struct{
  @pre iRegister != Null
  @post After resetAll(r) the iRegister is set to 0
  
- Properties: 
+ Properties:  
 The selected register should be zero after resetAll()
 
  test-cases: 
