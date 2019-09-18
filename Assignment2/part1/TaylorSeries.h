@@ -6,6 +6,4 @@ struct expStruct {
 
 typedef struct expStruct ExpStruct;
 
-ExpStruct * iexp ( int ); 
-
-char *expToString(ExpStruct *iexp);
+ExpStruct * iexp ( int );

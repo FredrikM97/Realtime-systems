@@ -1,6 +1,6 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h> 
+#include "stdlib.h"
+#include "stdio.h"
+#include "math.h"
 #include "TaylorSeries.h"
 
 
@@ -21,12 +21,4 @@ ExpStruct * iexp ( int x){
 	output->expFraction = (int)((sum - (int)sum)*100.0);
 
 	return output;//return the struktur
-}
-
-char *expToString(ExpStruct *iexp){
-	static char output[65];
-	
-	sprintf (output, "%d.%d", iexp->expInt, iexp->expFraction);
-	
-	return output;
 }
