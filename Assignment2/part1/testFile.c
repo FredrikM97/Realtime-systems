@@ -37,3 +37,34 @@ void test_BREAKiexp(void){ //try to break iexp
 		free(test);
 	}
 }
+
+
+void test_iexp(void){ //try to break iexp
+	srand(time(0));
+	int i;
+	expStruct test;
+	
+	test = iexp(0);
+	CU_ASSERT(test-> expInt ==  1);	
+	CU_ASSERT(test-> expFraction ==  0);	
+	CU_ASSERT(test-> expInt ==  1 && test-> expFraction ==  0);	
+	free(test);
+	
+	test = iexp(4);
+	CU_ASSERT(test-> expInt ==  34);	
+	CU_ASSERT(test-> expFraction ==  33);	
+	CU_ASSERT(test-> expInt ==  34 && test-> expFraction ==  33);	
+	free(test);
+	
+	test = iexp(10);
+	CU_ASSERT(test-> expInt ==  12842);	
+	CU_ASSERT(test-> expFraction ==  30);	
+	CU_ASSERT(test-> expInt ==  12842 && test-> expFraction ==  30);	
+	free(test);
+	
+	test = iexp(-5);
+	CU_ASSERT(test-> expInt ==  -12);	
+	CU_ASSERT(test-> expFraction ==  33);	
+	CU_ASSERT(test-> expInt ==  -12 && test-> expFraction ==  33);	
+	free(test);
+}
