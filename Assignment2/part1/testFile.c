@@ -8,7 +8,7 @@ void test_expFraction(void){
 	int i, test;
 	
 	for(i = 0; i < 100;i++){//testar så att det inte kan bli störe en 2 desimaler
-		test = iexp(rand())->expFraction;
+		test = iexp(rand()%22)->expFraction;
 		CU_ASSERT(100 > test && test >= 0);	
 	}
 }
@@ -19,7 +19,7 @@ void test_BREAKiexp(void){ //try to break iexp
 	int i;
 	expStruct test;
 	
-	test = iexp(-2147483648); //test min int
+	test = iexp(-21); //test min int
 	CU_ASSERT(test != NULL);	
 	free(test);
 	
@@ -27,12 +27,12 @@ void test_BREAKiexp(void){ //try to break iexp
 	CU_ASSERT(test != NULL); //test 0	
 	free(test);
 	
-	test = iexp(2147483647);//test max int
+	test = iexp(22);//test max int
 	CU_ASSERT(test != NULL);	
 	free(test);
 	
 	for(i = 0; i < 1000;i++){ //test random int 
-		test = iexp(rand());
+		test = iexp(rand()%22);
 		CU_ASSERT(test != NULL);	
 		free(test);
 	}
