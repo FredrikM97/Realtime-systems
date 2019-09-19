@@ -45,9 +45,9 @@ void test_iexp(void){ //try to break iexp
 	expStruct test;
 	
 	test = iexp(0);
-	CU_ASSERT(test-> expInt ==  1);	
-	CU_ASSERT(test-> expFraction ==  0);	
-	CU_ASSERT(test-> expInt ==  1 && test-> expFraction ==  0);	
+	CU_ASSERT(test->expInt ==  1);	
+	CU_ASSERT(test->expFraction ==  0);	
+	CU_ASSERT(test->expInt ==  1 && test->expFraction ==  0);	
 	free(test);
 	
 	test = iexp(4);
@@ -68,3 +68,13 @@ void test_iexp(void){ //try to break iexp
 	CU_ASSERT(test-> expInt ==  -12 && test-> expFraction ==  33);	
 	free(test);
 }
+
+//22
+CU_ASSERT(test-> expInt ==  1994556672);	
+CU_ASSERT(test-> expFraction ==  0);	
+free(test);
+
+//-22
+CU_ASSERT(test-> expInt ==  150135344);	
+CU_ASSERT(test-> expFraction ==  0);	
+free(test);
