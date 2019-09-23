@@ -37,14 +37,14 @@ static void spi_byte(const uint8_t out, uint8_t *in)
 	for(int i = 0; i < 8; i++) {
 		tmpin <<= 1;
 
-		if(tmpout & 0x80) 
+		if(tmpout & 0x80)
 			GPIO->GPSET0 = (1 << 10);	// set MOSI
-		else              
+		else
 			GPIO->GPCLR0 = (1 << 10);
 
-		if(GPIO->GPLEV0 & (1 << 9)) 
+		if(GPIO->GPLEV0 & (1 << 9))
 			tmpin |= 1;		// read MISO
-		
+
 		GPIO->GPSET0 = (1 << 11);			// set CLK
 		GPIO->GPCLR0 = (1 << 11);			// clear CLK
 
@@ -132,7 +132,7 @@ static void lcd_write_cmd(uint8_t cmd)
 {
     /* write high nibble */
 	lcd_pulse( LCD_BL | (cmd >> 4)   );
-	
+
     /* write low nibble */
     lcd_pulse( LCD_BL | (cmd & 0x0F) );
 
@@ -150,7 +150,7 @@ static void lcd_write_data(uint8_t data)
 	lcd_busy_wait();
 
     /* write low nibble */
-    lcd_pulse( LCD_BL | LCD_RS | (data & 0x0F) );	
+    lcd_pulse( LCD_BL | LCD_RS | (data & 0x0F) );
 }
 
 static void lcd_init(void)
@@ -171,7 +171,7 @@ static void lcd_init(void)
     /* display clear */
 	lcd_write_cmd( 0x01 );
 	LCD_DELAY;
-    
+
     /* entry mode set; I/D = 1 for direction left to right, S = 0 for shift off */
 	lcd_write_cmd( 0x06 );
     /* dislay on/off; D = 1 for display on, C = 1 for cursor on; B = 0 for blinking off*/
@@ -194,15 +194,22 @@ uint8_t piface_getc(void)
 void piface_putc(char c)
 {
 	/* write character */
+	lcd_wrote_data(c)
 }
 
 void piface_puts(char s[])
 {
     /* write string */
+		int i;
+		for (i = 0; i < sizeof(s); i ++){
+			piface_putc(s[i])
+			lcd_write_cmd( 0x1c ); /*Shift right*/
+		}
 }
 
 void piface_clear(void)
 {
     /* clear display */
+		lcd_write_cmd( 0x01 );
+		lcd_write_cmd( 0x02 ); /* Return home*/
 }
-
