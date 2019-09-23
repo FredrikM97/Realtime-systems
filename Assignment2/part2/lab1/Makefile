@@ -1,6 +1,6 @@
 # Makefile for Raspberry Pi 3
 
-OBJS	= lib/startup.o lib/syscalls.o lab1.o piface.o
+OBJS	= lib/startup.o lib/syscalls.o lab1.o piface.o TaylorSeries.o
 ELF	    = kernel.elf
 MAIN	= kernel.img
 
@@ -31,4 +31,3 @@ clean:
 	rm -f $(MAIN) $(ELF) $(OBJS)
 
 run: $(MAIN)
-
