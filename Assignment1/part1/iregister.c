@@ -76,7 +76,7 @@ char *reg2str(iRegister r) {
 }
 
 void shiftRight(int i, iRegister *r){
-	if(i <= 32 && i >= 1){
+	if(i < 32 && i >= 1){
 		if(getBit(31,r) == 1){
 			r->content = (r->content) >> 1;
 			resetBit(31,r);
