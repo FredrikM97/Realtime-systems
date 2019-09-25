@@ -26,11 +26,11 @@ void setBit(int i, iRegister *r) {
 }
 
 void setAll(iRegister *r) {
-	r->content |= ~0;
+	r->content = ~0;
 }
 
 void resetAll(iRegister *r) {
-	r->content &= 0;
+	r->content = 0;
 }
 
 
