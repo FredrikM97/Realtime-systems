@@ -76,7 +76,7 @@ char *reg2str(iRegister r) {
 }
 
 void shiftRight(int i, iRegister *r){
-	if(i < 32 && i >= 1){
+	if(i < 32 && i > 0){
 		if(getBit(31,r) == 1){
 			r->content = (r->content) >> 1;
 			resetBit(31,r);
@@ -90,11 +90,8 @@ void shiftRight(int i, iRegister *r){
 }
 
 void shiftLeft(int i, iRegister *r){
-	if(i <= 31 && i >= 1){
+	if(i < 32 && i > 0){
 		r->content = (r->content)<<i;
-	}else if(i == 32){
-		r->content = (r->content)<<31;
-		r->content = (r->content)<<1;
 	}else{
 		//error protokol
 	}
