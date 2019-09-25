@@ -5,7 +5,6 @@
 */
 
 #include <rpi3.h> 
-#include <math.h>
 
 void man_sleep(int x){
 	int i;
