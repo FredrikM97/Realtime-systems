@@ -9,26 +9,30 @@
 #include <rpi3.h>
 #include "TaylorSeries.h"
 #include "piface.h"
+#include "iregister.h"
+#include <time.h>
 
 void display_Controller(int);
-void led_Controller();
-void led_Delay(int);
+void led_Controller(iRegister);
+
+int LAMP_STATUS = 0; //Status of lamp
+
 int main()
 {
+    iRegister lamp = {1};
+    shiftLeft(18,&lamp);
     /* Enable GPIO16 as an output */
-    GPIO->GPFSEL1 |= (1 << 18);
-
-    /* Turn LED on */
-    GPIO->GPSET0 |= (1 << 16);
+    GPIO->GPFSEL1 |= lamp.content;
 
     /* Write to PiFace's LCD screen */
     piface_puts("Hello World!\n");
-
     int i=0;
+    //int x = 0;
     while (1){
       display_Controller(i);
-      led_Controller();
+      led_Controller(lamp);
       i++;
+
     }
 	return 0;
 }
@@ -42,21 +46,14 @@ void display_Controller(int i){
   piface_clear();
   free(temp);
 }
-void led_Controller(void){
-  /* Iteratively turn on and off the LED */
-  GPIO->GPCLR0 |= (1 << 16);
-  led_Delay(100);
-  GPIO->GPSET0 |= (1 << 16);
-  led_Delay(100);
-  /*Change delay speed*/
-  //if(i != -1) {
-  //  i = i<<1;
-  //}
-}
+void led_Controller(iRegister lamp){
+  shiftRight(2,&lamp);
 
-void led_Delay(int x){
-	int i;
-	for(i = 0;i < (x*10000); i++){
-		asm("nop");
-	}
+  /* Iteratively turn on and off the LED */
+  LAMP_STATUS = !LAMP_STATUS;
+  if(LAMP_STATUS){
+    GPIO->GPCLR0 |= lamp.content;
+  }else{
+    GPIO->GPSET0 |= lamp.content;
+  }
 }
