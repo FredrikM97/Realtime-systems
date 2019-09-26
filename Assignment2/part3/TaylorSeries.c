@@ -18,7 +18,7 @@ ExpStruct * iexp ( int x){
 	}
 
 	output->expInt = (int)sum;//allocate the values to the structure
-	output->expFraction = (int)((sum - (long)sum)*100.0);
+	output->expFraction = (float)((sum - (int)sum)*100);
 
 	return output;//return the struktur
 }

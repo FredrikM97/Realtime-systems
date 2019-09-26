@@ -202,7 +202,7 @@ void piface_puts(char s[]){
 	  /* write string */
 		int i;
 		for(i=0; i < strlen(s); i++){
-			if (s[i] == '\n' || (i%15 == 0 && i != 0)) {
+			if (s[i] == '\n' || (i%16 == 0 && i != 0)) {
 				lcd_write_cmd(0xC0);
 			}else{
 				lcd_write_data( s[i] );
