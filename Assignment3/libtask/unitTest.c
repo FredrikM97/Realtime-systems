@@ -1,6 +1,5 @@
 #include <stdio.h>
-
-
+#include <CUnit/Basic.h>
 
 void compare_primes(int up2number){
   FILE *expected;

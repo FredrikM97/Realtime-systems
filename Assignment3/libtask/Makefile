@@ -12,6 +12,7 @@ OFILES=\
 	qlock.o\
 	rendez.o\
 	task.o\
+	unitTest.o\
 
 all: $(LIB)
 
@@ -51,4 +52,3 @@ clean:
 install: $(LIB)
 	cp $(LIB) /usr/local/lib
 	cp task.h /usr/local/include
-
