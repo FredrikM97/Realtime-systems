@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <CUnit/Basic.h>
 
-void compare_primes(int up2number){
+void compare_primes(){
+  int up2number = 100;
   FILE *expected;
   FILE *input;
   int PATH_MAX = up2number;
@@ -21,6 +22,9 @@ void compare_primes(int up2number){
 
 
 int main(){
+  /*
+
+  */
   printf("Start stuff");
 	CU_pSuite pSuite = NULL;
 
