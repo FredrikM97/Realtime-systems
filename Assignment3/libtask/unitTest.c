@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "primes.h"
+#include "working_primes.h"
 #include <CUnit/Basic.h>
 
 void compare_primes(){
@@ -6,7 +8,8 @@ void compare_primes(){
   FILE *expected;
   FILE *input;
   int PATH_MAX = up2number;
-  char data[1][PATH_MAX];
+  char data1[PATH_MAX];
+  char data2[PATH_MAX];
 
   expected = popen("./working_primes" + up2number, "r");
   input = popen("./primes" + up2number, "r");
@@ -14,7 +17,7 @@ void compare_primes(){
   CU_ASSERT(NULL != expected);
   CU_ASSERT(NULL != input);
   int i;
-  while (fgets(data[0], PATH_MAX, expected) != NULL || fgets(data[1], PATH_MAX, expected) != NULL ){
+  while (fgets(data1, PATH_MAX, expected) != NULL || fgets(data2, PATH_MAX, expected) != NULL ){
     printf("%s - %s", data[0], data[1]);
     CU_ASSERT(data[0] == data[1]);
   }
