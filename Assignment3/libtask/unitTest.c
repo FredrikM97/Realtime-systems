@@ -1,36 +1,42 @@
 #include <stdio.h>
-#include "primes.h"
-#include "working_primes.h"
+#include <stdlib.h>
 #include <CUnit/Basic.h>
+//Change this if you want another limit :)
+int up2number = 1000;
 
 void compare_primes(){
-  int up2number = 100;
   FILE *expected;
   FILE *input;
-  int PATH_MAX = up2number;
-  char data1[PATH_MAX];
-  char data2[PATH_MAX];
+  int CHAR_MAX_LEN = 100;
+  char data1[CHAR_MAX_LEN];
+  char data2[CHAR_MAX_LEN];
 
-  expected = popen("./working_primes" + up2number, "r");
-  input = popen("./primes" + up2number, "r");
+  char c[20];
+  //CHANGE TO WORKING_PRIMES :)
+  sprintf(c, "./primes %d", up2number);
+  expected = popen(c, "r");
+
+  sprintf(c, "./primes %d", up2number);
+  input = popen(c, "r");
 
   CU_ASSERT(NULL != expected);
   CU_ASSERT(NULL != input);
   int i;
-  while (fgets(data1, PATH_MAX, expected) != NULL || fgets(data2, PATH_MAX, expected) != NULL ){
-    printf("%s - %s", data[0], data[1]);
-    CU_ASSERT(data[0] == data[1]);
+
+  while (fgets(data1, CHAR_MAX_LEN, expected) != NULL){
+    if (fgets(data2, CHAR_MAX_LEN, input) != NULL){
+      //printf("%s - %s", data1, data2);
+      CU_ASSERT(strcmp(data1, data2) == 0);
+    }
   }
 }
 
 
-int main(){
-  /*
+int main(int argc, char **argv){
+  if (argc > 1)
+      up2number = atoi(argv[1]);
 
-  */
-  printf("Start stuff");
 	CU_pSuite pSuite = NULL;
-
 	if (CUE_SUCCESS != CU_initialize_registry())
 		return CU_get_error();
 
