@@ -8,14 +8,17 @@
 #include <stdlib.h>
 #include <rpi3.h>
 #include "TaylorSeries.h"
+#include "iregister.h"
 #include "piface.h"
 int main()
 {
+    iRegister lamp = {1};
+    shiftLeft(18,&lamp);
     /* Enable GPIO16 as an output */
-    GPIO->GPFSEL1 |= (1 << 18);
-
+    GPIO->GPFSEL1 |= lamp.content;
+    shiftRight(2,&lamp);
     /* Turn LED on */
-    GPIO->GPSET0 |= (1 << 16);
+    GPIO->GPSET0 |= lamp.content;
 
     /* Write to PiFace's LCD screen */
     piface_puts("Hello World!\n");
@@ -25,7 +28,7 @@ int main()
     while (1)
     {
       ExpStruct *temp=iexp(i);
-      sprintf(data, "Data: %d.%d",temp->expInt,temp->expFraction);
+      sprintf(data, "%d: %d.%d",i,temp->expInt,temp->expFraction);
       piface_puts(data);
       piface_delay();
       piface_clear();
