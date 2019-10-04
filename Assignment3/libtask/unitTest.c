@@ -13,7 +13,7 @@ void compare_primes(){
 
   char c[20];
   //CHANGE TO WORKING_PRIMES :)
-  sprintf(c, "./primes %d", up2number);
+  sprintf(c, "./working_primes %d", up2number);
   expected = popen(c, "r");
 
   sprintf(c, "./primes %d", up2number);
