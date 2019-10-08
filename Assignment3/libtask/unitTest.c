@@ -4,6 +4,11 @@
 //Change this if you want another limit :)
 int up2number = 1000;
 
+
+/**
+In order to run the files, check that working_primes is an executable using chmod
+
+**/
 void compare_primes(){
   FILE *expected;
   FILE *input;
@@ -21,7 +26,6 @@ void compare_primes(){
 
   CU_ASSERT(NULL != expected);
   CU_ASSERT(NULL != input);
-  int i;
 
   while (fgets(data1, CHAR_MAX_LEN, expected) != NULL){
     if (fgets(data2, CHAR_MAX_LEN, input) != NULL){
