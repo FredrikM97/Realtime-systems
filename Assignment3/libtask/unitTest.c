@@ -6,7 +6,7 @@ int up2number = 1000;
 
 
 /**
-In order to run the files, check that working_primes is an executable using chmod
+In order to run the files, check that working_primes is an executable using chmod.
 
 **/
 void compare_primes(){
