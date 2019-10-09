@@ -1,14 +1,15 @@
 public class Philosophers {
     private static int NUM_PHIL = 5;
+    private static int RunCnt[] = new int[NUM_PHIL];
     private static Object[] forks = new Object[NUM_PHIL];
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws InterruptedException {
         Philosopher[] phils = new Philosopher[NUM_PHIL];
         // Create forks
-        for(int i=0; i<num_phil; i++) forks[i]=new Object();
-        for(int i=0; i<num_phil; i++) phils[i]=new Philosopher(i, forks[i], forks[(i+1) % NUM_PHIL]);
+        for(int i=0; i<NUM_PHIL; i++) forks[i]=new Object();
+        for(int i=0; i<NUM_PHIL; i++) phils[i]=new Philosopher(i, forks[i], forks[(i+1) % NUM_PHIL]);
         // Start all Philosopher threads
-        Thread.sleep(/* ... */); // Idle here
+        Thread.sleep(1); // Idle here
         // Request termination
         // Wait for all to finish
         // Print stats
@@ -17,7 +18,6 @@ public class Philosophers {
     static class Philosopher extends Thread {
         private final Object leftFork, rightFork;
         private final int id;
-
         public Philosopher(int id, Object leftFork, Object rightFork) {
             // Constructor
             // ...
@@ -25,6 +25,7 @@ public class Philosophers {
 
         private void eat() {
             System.out.println("Philosopher "+id+" is eating.");
+            RunCnt[id]++;
             // delay
         }
 
