@@ -2,16 +2,20 @@ public class Philosophers {
     private static int NUM_PHIL = 5;
     private static int RunCnt[] = new int[NUM_PHIL]; // Counter for eating (Task 4)
     private static Object[] forks = new Object[NUM_PHIL];
-    private int currentFork = 0;
 
     public static void main(String[] args) throws InterruptedException {
-        // Create scheduler
-        Philosophers p = new Philosophers();
 
         Philosopher[] phils = new Philosopher[NUM_PHIL];
         // Create forks
         for(int i=0; i<NUM_PHIL; i++) forks[i]=new Object();
-        for(int i=0; i<NUM_PHIL; i++) phils[i]=new Philosopher(i, forks[i], forks[(i+1) % NUM_PHIL];
+        for(int i=0; i<NUM_PHIL; i++){
+            // Even though Deadlock doesnt occur this should fix it 
+            if(i == NUM_PHIL - 1){
+                phils[i]=new Philosopher(i, forks[i], forks[(i+1) % NUM_PHIL]);
+            }else{
+                phils[i]=new Philosopher(i, forks[i+1], forks[(i) % NUM_PHIL]);
+            }       
+        }
         // Start all Philosopher threads
         for(Philosopher i : phils){
             i.start();
@@ -26,10 +30,15 @@ public class Philosophers {
 
         // Print stats
         for(int i = 0; i < NUM_PHIL; i++){ 
-            System.out.print("ID: " + i + " Count: " + RunCnt[i])
+            System.out.print("ID: " + i + " Count: " + RunCnt[i] + "\n");
         }
+        
+        /** Fun for infinitum and tell for each 100 run
+        if(RunCnt[1] % 100 == 0){
+            System.out.print("ID: " + 1 + " Count: " + RunCnt[1] + "\n");
+        }**/
+        
     }
-
     static class Philosopher extends Thread {
         private final Object leftFork, rightFork;
         private final int id;
@@ -39,44 +48,40 @@ public class Philosophers {
 
 
         public Philosopher(int id, Object leftFork, Object rightFork) {
-            id = this.id;
-            leftFork = this.leftFork;
-            rightFork = this.rightFork;
+            this.id = id;
+            this.leftFork = leftFork;
+            this.rightFork = rightFork;
         }
         
         private void eat() {
             System.out.println("Philosopher "+id+" is eating.");
             RunCnt[id]++;
             // delay
-            Thread.sleep(2000);
+            try{Thread.sleep(100);}catch(InterruptedException ie){}
         }
 
         private void think() {
             System.out.println("Philosopher "+id+" is thinking.");
             // delay
-            Thread.sleep(2000);
+            try{Thread.sleep(100);}catch(InterruptedException ie){}
         }
 
         private void waiting() {
             System.out.println("Philosopher "+id+" is waiting.");
             // delay
-            Thread.sleep(1000);
+            try{Thread.sleep(100);}catch(InterruptedException ie){}
         }
 
         public void run( ) {
             while(!stop) {
-                synchronized(this){
-                    think();
-                    waiting();
+                think();
+                waiting();
+                synchronized(leftFork){
                     // pick up forks
-                    if(!rightFork[currentFork]) {
-
-                        rightFork[currentFork] = true;
-                         eat();
-                        // put down forks
-                        rightFork[currentFork] = false;
+                    synchronized(rightFork){
+                        eat();
                     }
-                    rightFork = (rightFork + 1)%NUM_PHIL;
+                    // put down forks
                 }
             }
         }
