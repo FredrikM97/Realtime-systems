@@ -11,32 +11,27 @@ public class Philosophers2 extends Thread {
     
     public static void main(String[] args) throws InterruptedException {
         // Create scheduler
-        Philosophers2 p = new Philosophers2();
+        Philosophers2 scheduler = new Philosophers2();
         Philosopher[] ph = new Philosopher[NUM_PHIL];
         // Create forks
         for(int i=0; i<NUM_PHIL; i++) forks[i]=new Object();
         for(int i=0; i<NUM_PHIL; i++){
-            // Even though Deadlock doesnt occur this should fix it 
-            if(i == NUM_PHIL - 1){
-                ph[i]=new Philosopher(i, p, forks[i], forks[(i+1) % NUM_PHIL]);
-            }else{
-                ph[i]=new Philosopher(i, p, forks[i+1], forks[(i) % NUM_PHIL]);
-            }    
+
+            ph[i]=new Philosopher(i, scheduler, forks[i], forks[(i+1) % NUM_PHIL]);
         }
         // Start Scheduler
-        p.start();
-
+        scheduler.start();
         sleep(10000); // Idle here
 
         // Request termination
-        p.interrupt(); p.join();
+        scheduler.interrupt(); scheduler.join();
 
         // Print stats
         for(int i = 0; i < NUM_PHIL; i++){ 
             System.out.print("ID: " + i + " Count: " + RunCnt[i] + "\n");
         }
     }
-    /** Waiter thread  control **/
+    /** Waiter thread  control (scheduler) **/
 	public void run() {
 		for(Thread p : phils) p.start();
 		int currentPhils = 0;
@@ -45,9 +40,8 @@ public class Philosophers2 extends Thread {
 			  
                 try { Thread.sleep(period); } catch(InterruptedException ie) { break; }
                 Thread phil = phils[currentPhils];
-                if(phil != null) {
-                    synchronized(phil) { phil.notify(); }
-                }
+                if(phil != null) { synchronized(phil) { phil.notify(); }}
+                
                 currentPhils = (currentPhils + 1) % NUM_PHIL;
             }
         }   
@@ -61,49 +55,52 @@ public class Philosophers2 extends Thread {
 
         public Philosopher(int id, Philosophers2 scheduler, Object leftFork, Object rightFork) {
             this.id = id;
+            //Tell scheduler that this object exist and add it to the waiter
             scheduler.phils[id] = this;
             this.leftFork = leftFork;
             this.rightFork = rightFork;
         }
         
-        private void eat() {
+        private void eat() throws InterruptedException {
             long myPeriod = (lastCall == 0) ? 0 : System.nanoTime() - lastCall;
 			lastCall = System.nanoTime();
 			System.out.printf("Period from Philosopher %d: %.3f\n", id, myPeriod/1000000.0); 
             //System.out.println("Philosopher "+id+" is eating.");
             RunCnt[id]++;
             // delay
-            try{Thread.sleep(100);}catch(InterruptedException ie){}
+            synchronized(this){
+                this.wait(1000);
+            }
         }
 
-        private void think() {
+        private void think() throws InterruptedException {
             //System.out.println("Philosopher "+id+" is thinking.");
             // delay
-            try{Thread.sleep(100);}catch(InterruptedException ie){}
+
+            Thread.sleep(10);
         }
 
-        private void waiting() {
+        private void waiting() throws InterruptedException {
             //System.out.println("Philosopher "+id+" is waiting.");
             // delay
-            try{Thread.sleep(100);}catch(InterruptedException ie){}
+            Thread.sleep(10);
         }
 
         public void run() {
             while(!interrupted()) {
+                try{
                     think();
                     waiting();
                     synchronized(leftFork){
                         // pick up forks
                         synchronized(rightFork){
-                            //try{
                                 eat();
-                            //}catch(InterruptedException ie) {
-                            //    break;
-                            //}
                         }
                         // put down forks
                     }
-                
+                }catch(InterruptedException ie) {
+                    break;
+                }
             }
         }
 

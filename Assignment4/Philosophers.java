@@ -9,7 +9,7 @@ public class Philosophers {
         // Create forks
         for(int i=0; i<NUM_PHIL; i++) forks[i]=new Object();
         for(int i=0; i<NUM_PHIL; i++){
-            // Even though Deadlock doesnt occur this should fix it 
+            // Fix for deadlock
             if(i == NUM_PHIL - 1){
                 phils[i]=new Philosopher(i, forks[i], forks[(i+1) % NUM_PHIL]);
             }else{
@@ -57,19 +57,19 @@ public class Philosophers {
             System.out.println("Philosopher "+id+" is eating.");
             RunCnt[id]++;
             // delay
-            try{Thread.sleep(100);}catch(InterruptedException ie){}
+            //try{Thread.sleep(100);}catch(InterruptedException ie){}
         }
 
         private void think() {
             System.out.println("Philosopher "+id+" is thinking.");
             // delay
-            try{Thread.sleep(100);}catch(InterruptedException ie){}
+            //try{Thread.sleep(100);}catch(InterruptedException ie){}
         }
 
         private void waiting() {
             System.out.println("Philosopher "+id+" is waiting.");
             // delay
-            try{Thread.sleep(100);}catch(InterruptedException ie){}
+            //try{Thread.sleep(100);}catch(InterruptedException ie){}
         }
 
         public void run( ) {
