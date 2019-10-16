@@ -25,14 +25,14 @@ public class Philosophers2 extends Thread{
             int currentPhilFirst = 0;
             int currentPhilsSecoend = 2;
             
-            try { Thread.sleep(50); } catch(InterruptedException ie) {}
+            try { Thread.sleep(50); } catch(InterruptedException ie) {} //sleep to let the rest to chatch upp
             
             while(!interrupted()) { 
-                    if(!chosen[currentPhilFirst]){
+                    if(!chosen[currentPhilFirst]){ //first running phil
                         currentPhilFirst = SwitchPhil(currentPhilFirst);
                     }
                     
-                    if(!chosen[currentPhilsSecoend]){
+                    if(!chosen[currentPhilsSecoend]){//Secoend running phil
                         currentPhilsSecoend = SwitchPhil(currentPhilsSecoend);
                     }
                     
@@ -45,7 +45,7 @@ public class Philosophers2 extends Thread{
             for(Thread p: phils) p.interrupt();
 	}
    
-    private int SwitchPhil(int currentPhil){
+    private int SwitchPhil(int currentPhil){ //the call of switch phil by the scheduler
         currentPhil = (currentPhil + 1) % NUM_PHIL;
         chosen[currentPhil] = true;
                         
@@ -109,7 +109,7 @@ public class Philosophers2 extends Thread{
                         }
                         chosen[id] = false;
                         synchronized(scheduler){
-                            scheduler.notify();
+                            scheduler.notify(); //tell scheduler that a phil is done
                         }
                     }
                 } catch (InterruptedException ex) { break; }
