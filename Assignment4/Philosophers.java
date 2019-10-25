@@ -13,7 +13,7 @@ public class Philosophers {
             if(i == NUM_PHIL - 1){
                 phils[i]=new Philosopher(i, forks[i], forks[(i+1) % NUM_PHIL]);
             }else{
-                phils[i]=new Philosopher(i, forks[i+1], forks[(i) % NUM_PHIL]);
+                phils[i]=new Philosopher(i, forks[(i+1)% NUM_PHIL]], forks[i]);
             }       
         }
         // Start all Philosopher threads
