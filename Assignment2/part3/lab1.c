@@ -42,7 +42,7 @@ void display_Controller(int i){
   ExpStruct *temp=iexp(i);
   sprintf(data, "%d: %d.%d",i,temp->expInt,temp->expFraction);
   piface_puts(data);
-  //piface_delay();
+  piface_delay();
   piface_clear();
   free(temp);
 }
