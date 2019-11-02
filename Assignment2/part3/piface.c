@@ -217,8 +217,10 @@ void piface_clear(void)
 		lcd_write_cmd( 0x02 );
 }
 void piface_delay(void){
-	int i;
-	for(i=0; i<250;i++){
-		LCD_DELAY;
-	}
+	LCD_DELAY;
+	LCD_DELAY;
+	//int i;
+	//for(i=0; i<250;i++){
+	//	LCD_DELAY;
+	//}
 }
