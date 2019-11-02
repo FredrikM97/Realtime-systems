@@ -20,14 +20,13 @@ ExpStruct * iexp ( int x){
 	output->expInt = (int)sum;//allocate the values to the structure
 	output->expFraction = (float)((sum - (int)sum)*100);
 
-	return output;//return the struktur
+	return output; //return the struktur
 }
 float data2pow(int x,int n){
-		float val = 1;
-    int i;
-
-    for (i = 0; i < n; ++i){
-        val *= x;
-		}
-    return(val);
+	float val = 1;
+    	int i;
+	for (i = 0; i < n; ++i){
+        	val *= x;
+	}
+    	return(val);
 }
