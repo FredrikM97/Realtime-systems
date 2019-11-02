@@ -29,7 +29,7 @@ int main()
     int i=0;
     //int x = 0;
     while (1){
-      display_Controller(i);
+      display_Controller(i); //Takes to long time, split it up even more and call on led_Controller
       led_Controller(lamp);
       i++;
 
