@@ -3,6 +3,7 @@
 //#include <math.h>
 #include "TaylorSeries.h"
 
+//int CircleStuff = 0; //Global interleaving checkthingy
 
 ExpStruct * iexp ( int x){
 	ExpStruct *output = (ExpStruct*) malloc(sizeof (ExpStruct)); //declare structure and allocate it to memory
@@ -25,8 +26,12 @@ ExpStruct * iexp ( int x){
 float data2pow(int x,int n){
 	float val = 1;
     	int i;
+	
 	for (i = 0; i < n; ++i){
-        	val *= x;
+		//if(CircleStuff % 800 == 0){
+			//Show me da lamp
+		//}
+		val *= x;
 	}
-    	return(val);
+	return(val);
 }
