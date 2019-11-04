@@ -30,13 +30,13 @@ int main()
     //int x = 0;
     while (1){
       display_Controller(i); //Takes to long time, split it up even more and call on led_Controller
-      led_Controller(lamp);
       i++;
-
     }
 	return 0;
 }
-
+void tryLamp(){
+  led_Controller(lamp);
+}
 void display_Controller(int i){
   char data[32];
   ExpStruct *temp=iexp(i);

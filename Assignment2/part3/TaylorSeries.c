@@ -1,9 +1,10 @@
-#include <stdlib.h>
+Show me da lamp#include <stdlib.h>
 #include <stdio.h>
 //#include <math.h>
 #include "TaylorSeries.h"
+#include "lab1.c"
 
-//int CircleStuff = 0; //Global interleaving checkthingy
+int CircleStuff = 0; //Global interleaving checkthingy
 
 ExpStruct * iexp ( int x){
 	ExpStruct *output = (ExpStruct*) malloc(sizeof (ExpStruct)); //declare structure and allocate it to memory
@@ -28,10 +29,12 @@ float data2pow(int x,int n){
     	int i;
 	
 	for (i = 0; i < n; ++i){
-		//if(CircleStuff % 800 == 0){
-			//Show me da lamp
-		//}
+		if(CircleStuff >= 800){
+			tryLamp();
+			CircleStuff = 0;
+		}
 		val *= x;
+		CircleStuff++;
 	}
 	return(val);
 }
