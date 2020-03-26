@@ -1,3 +1,3 @@
-# Realtime-systems
+# Realtime systems
 
-Project files for course in realtime systems
+Realtime systems Course at Halmstad Univeristy, winter 2019
